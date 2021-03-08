@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: spider-stroe
+
+  # springCloud
+  cloud:
+    # 配置中心
+    nacos:
+      config:
+        server-addr: 39.105.180.240:8848
+        file-extension: properties
+        encode: UTF-8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)http://www.cbooo.cn/m/657862 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="keywords" content="电影资料,影片资料,票房统计,导演,主演,制作公司,发行公司,电影详情,中国票房,狂暴巨兽,头号玩家,湮灭,起跑线,厉害了，我的国,红海行动,暴裂无声,毕业作品,西北风云,环太平洋2：雷霆再起">
+    <meta name="description" content="中国票房,专注于票房数据,提供电影日票房,周票房,年度票房,北美票房,全球票房,历史票房,排片数据。如:,狂暴巨兽,头号玩家,湮灭,起跑线,厉害了，我的国,红海行动,暴裂无声,毕业作品,西北风云,环太平洋2：雷霆再起">
+    <title>头号玩家_电影详情_中国票房</title>
+    <link href="./boxOffice_files/base.css" rel="stylesheet" type="text/css">
+    <link href="./boxOffice_files/common.css" type="text/css" rel="stylesheet">
+    <!--[if !ie]><!-->
+    <script>
+        if (window.matchMedia("screen and (-ms-high-contrast:active), (-ms-high-contrast:none)").matches) {
+            document.documentElement.className = "ie" + document.documentMode + " gt-ie9";
+        }
+    </script>
+    <!--<![endif]-->
+    <!-- javascript global end -->
+    <!--[if lt ie 9]>
+	    <link rel="stylesheet" href="../../Content/lt-ie9/css/ie.css" />
+    <![endif]-->
+    <script>
+        var shareData = {
+            bdDes: '中国票房',
+            text: '单日票房',
+            url: 'http://www.cbooo.cn/',
+            pic: ''
+        };
+        var objToString = function (o) {
+            var str = '';
+            for (var i in o) {
+                str += i + ':' + o[i] + ',';
+                //str += "'"+i+"':'"+o[i]+"',";
+            }
+            str = '{' + str.substring(0, str.lastIndexOf(',')) + '}';
+            return str;
+        };
+        function search() {
+            var txtSearch = $('#txtSearch').val();
+            var url = '/search?k=' + encodeURI(txtSearch);
+
+            if (txtSearch == '请输入影片/影人名称' || txtSearch == '' || txtSearch == 'null')
+                return;
+            window.location.href = url;
+        }
+        function enterSearch() {
+            var event = window.event || arguments.callee.caller.arguments[0];
+            if (event.keyCode == 13) {
+                search();
+            }
+        }
+    </script>
+    <script src="./boxOffice_files/jquery-1.7.1.min.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/comm.js.下载" type="text/javascript"></script>
+
+    <link href="./boxOffice_files/indexevent.css" rel="stylesheet" type="text/css">
+    <link href="./boxOffice_files/event.css" rel="stylesheet" type="text/css">
+    <link href="./boxOffice_files/jquery.jscrollpane.css" rel="stylesheet" type="text/css">
+    <style>
+        .m-span {
+            background-color: #109bee;
+            color: #fff;
+            width: 132px;
+            text-align: center;
+            display: inline-block;
+            border-radius:4px;
+            line-height:1.4;
+        }
+    </style>
+    <script src="./boxOffice_files/jquery-1.10.2.min.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/jquery.jscrollpane.min.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/jquery.mousewheel.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/masterevent.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/esl.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/drawChart.js.下载" type="text/javascript"></script>
+    <script src="./boxOffice_files/pages.js.下载" type="text/javascript"></script>
+    <script>
+        function HourChart() {
+            $.ajax({
+                url: '/Mdata/getHourBox',
+                data: { MovieID: '657862', t: new Date().getTime() },
+                type: 'get',
+                dataType: 'json',
+                success: function (msgData) {
+                    drawChartTable(msgData);
+                }, error: function (a, b, c) {
+                    console.log(b);
+                }
+            });
+        }
+        function drawChartTable(msgData) {
+            var nowTime = new Date();
+            var chartTitle = (nowTime.getMonth() + 1) + '月' + nowTime.getDate() + '日 ' + _weekArr[nowTime.getDay()] + ' 实时趋势';
+
+            var xArr = [];
+            var seriesArr = [];
+            msgData = msgData || [];
+            var boxObj = {
+                name: '票房',
+                type: 'bar',
+                barCategoryGap: '70%',
+                data: []
+            };
+            var AttendanceArr = {
+                name: '上座率',
+                type: 'line',
+                data: [],
+                yAxisIndex: 1,
+            };
+            var tableHtml = '';
+            for (var i = 0; i < msgData.length; i++) {
+                var box = (Number(msgData[i].BoxOffice) / 10000).toFixed(2);
+                xArr.push(msgData[i].HourTime);
+                boxObj.data.push(box);
+                AttendanceArr.data.push(msgData[i].Attendance);
+                tableHtml += '<tr>'
+                                + '<td>' + msgData[i].HourTime + '点</td>'
+                                + '<td>' + box + '</td>'
+                                + '<td>' + msgData[i].ShowPercent + '%</td>'
+                                + '<td>' + msgData[i].PeoplePercent + '%</td>'
+                                + '<td>' + msgData[i].Attendance + '%</td>'
+                                + '<td>' + msgData[i].ShowPeople + '</td>'
+                                +'</tr>';
+            }
+            seriesArr.push(boxObj);
+            seriesArr.push(AttendanceArr);
+            $('#table_content').html(tableHtml);
+            drawChar.mDatass('canvasSs', chartTitle, xArr, seriesArr);
+        }
+
+        $(document).ready(function () {
+            //InitLine();
+            InitEvent();
+            if ($('#tab li[val="s"]').length > 0) {
+                HourChart();
+            }
+            function InitEvent() {
+                $.ajax({
+                    url: '/Mdata/getMovieEventAll',
+                    data: { movieid: '657862' },
+                    type: 'get',
+                    dataType: 'html',
+                    async: false,
+                    success: function (data) {
+                        $("#divEvent").html(data);
+                    }
+                });
+            }
+            ckTab('tab', 'content', 'current');
+            $('#liDayBox').one('click', function () {
+                getDate();
+            });
+            var tn = '0';
+            if (Number(tn)) {
+                $('#tab li[val="s"]').click();
+            }
+        });
+
+        /*****************************************/
+        var parm = {
+            id: '657862'
+        };
+        var getDate = function () {
+            //convers.init('tabcont').begin();
+            $.ajax({
+                url: '/Mdata/getMdate_mBoxNow',
+                data: parm,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    var dtArr = eval('' + data.data1 + '');
+                    var list = getObj(dtArr);
+                    //var dt = drawChar.editDate(dtArr[1].InsertDate, '/') + '-' + drawChar.editDate(dtArr[dtArr.length - 1].InsertDate, '/').slice(5);
+                    drawChar.dayInfoLine('canvasDay', '', list.dateArr, list.numArr, '');
+                    $('#lbTol').text('截止到' + drawChar.editDate(dtArr[0].InsertDate, '/') + '当前累计票房' + Math.round(data.tolBox / 10000) + '万');
+                }
+            });
+        };
+
+        var getObj = function (dtArr) {
+            var leng = dtArr.length;
+            var resOjb = {
+                dateArr: [],
+                numArr: [],
+                tbHtml: ''
+            };
+            for (var i = 0; i < leng; i++) {
+                var timeStr = dtArr[i].InsertDate.replace(' 0:00:00', '');
+                var boxStr = Number(dtArr[i].boxOffice).toFixed(0);
+                var tol = '票房：￥' + boxStr + '万';
+                resOjb.dateArr.push(timeStr);
+                resOjb.numArr.push({
+                    value: boxStr,
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: tol
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: drawChar.colorArr[0]
+                        }
+                    }
+                });
+            }
+            resOjb.dateArr.reverse();
+            resOjb.numArr.reverse();
+            return resOjb;
+        };
+    </script>
+    <!--百度统计-->
+    
+
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fdaabace29afa1e8193c0e3000d391562' type='text/javascript'%3E%3C/script%3E"));
+    </script><script src="./boxOffice_files/h.js.下载" type="text/javascript"></script>
+<!--百度统计-->
+    <style>
+        .cbow {
+            width: 100%;
+            height: 80px;
+            background-color: #010104;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cbow a {
+            vertical-align: top;
+            display: inline-block;
+        }
+        .code-box {
+            position: fixed;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            padding: 5px;
+            right: 0;
+            top: 50%;
+            background: #fff;
+            margin-top: -75px;
+        }
+    </style>
+</head>
+<body id="top" style="">
+    <div class="cbow"><a href="http://ebotapp.entgroup.cn/Home/Browser" target="_blank"><img src="./boxOffice_files/baner.png" width="990" height="80" alt=""></a></div>
+    <!--header start-->
+    <div class="cbo_nav">
+
+        <div class="nav_logo">
+            <a href="http://www.cbooo.cn/"><img src="./boxOffice_files/logo.png" alt="" border="0"></a>
+        </div>
+
+        <div class="nav_list">
+            <ul id="topmenu">
+                <li><a id="ahome" href="http://www.cbooo.cn/" class="">首页</a></li>
+                <li><a id="ass" href="http://www.cbooo.cn/realtime">票房</a></li>
+                <li><a id="apaipian" href="http://www.cbooo.cn/paipian">排片</a></li>
+                <li><a id="acu" href="http://www.cbooo.cn/ChinaUSMARKET">中美</a></li>
+                <li><a id="anews" href="http://www.cbooo.cn/newslist">资讯</a></li>
+                <li><a id="ateleplay" href="http://www.cbooo.cn/Teleplay">电视</a></li>
+                <li><a id="amovies" href="http://www.cbooo.cn/movies" class="active">影库</a></li>
+            </ul>
+        </div>
+
+        <div class="nav_input">
+            <input id="txtSearch" type="text" name="" value="" placeholder="请输入影片名/影人名称" style="font-family:&#39;Microsoft YaHei&#39;" onkeydown="enterSearch()">
+            <span><img src="./boxOffice_files/search.png" alt="" onclick="search()"></span>
+            <a href="javascript:void(0);" class="code-box">
+                <div><img src="./boxOffice_files/nav_weixin.png" alt="" style="  vertical-align:middle;"></div>
+                <div class="code-warp">
+                    <p class="tt">关注中国票房网</p>
+                    <p><img src="./boxOffice_files/weixin.jpg" alt=""></p>
+                </div>
+            </a>
+            <!-- 二维码下拉框 -->
+        </div>
+    </div>
+    <!--header end-->
+    <!--内容-->
+    <div style="width:1004px;margin:0 auto; ">
+
+
+
+        <!--menu start-->
+        <div class="menu fl">
+            <ul class="dropdown tendina">
+                <li class="selected" id="cbomenuleft">
+                    <ul id="ulBoxOffice" class="displaynone" style="display: none;">
+                        <li id="ss"><a id="aLeft_ss" href="http://www.cbooo.cn/realtime">实时票房</a></li>
+                        <li id="movieday"><a id="aLeft_Index" href="http://www.cbooo.cn/movieday">单日票房</a></li>
+                        <li id="movieweek"><a id="aLeft_WeekInfo" href="http://www.cbooo.cn/movieweek">单周票房</a></li>
+                        <li id="weekend"><a id="aLeft_WeekendInfo" href="http://www.cbooo.cn/weekend">周末票房</a></li>
+                        <li id="monthday"><a id="aLeft_monthBox" href="http://www.cbooo.cn/monthday">单月票房</a></li>
+                        <li id="year"><a id="aLeft_YearInfo" href="http://www.cbooo.cn/year?year=2018">年度票房</a></li>
+                        <li id="global"><a id="aLeft_AllInfo" href="http://www.cbooo.cn/global">全球票房</a></li>
+                        <li id="history"><a id="aLeft_HistoryInfo" href="http://www.cbooo.cn/history">历史票房</a></li>
+                        <li id="cinemaday"><a id="aLeft_cinemaBoxDay" href="http://www.cbooo.cn/cinemaday">影院票房</a></li>
+                    </ul>
+                    <ul id="ulPaipian" class="displaynone" style="display: none;">
+                        <li id="paipian"><a id="aLeft_Screen_Country" href="http://www.cbooo.cn/paipian">单日排片</a></li>
+                        <li id="paipiantrend"><a id="aLeft_Screen_Trend" href="http://www.cbooo.cn/paipiantrend">趋势分析</a></li>
+                        
+                    </ul>
+                    <ul id="ulEFMT" class="displaynone" style="display: none;">
+                        <li id="FilmTGI"><a id="aLeft_EFMT_Index" href="http://www.cbooo.cn/FilmTGI">认知指数</a></li>
+                        <li id="BuyTicketTGI"><a id="aLeft_EFMT_BuyTicket" href="http://www.cbooo.cn/BuyTicketTGI">购票指数</a></li>
+                        <li id="WoMTGI"><a id="aLeft_EFMT_WoM" href="http://www.cbooo.cn/WoMTGI">口碑指数</a></li>
+                    </ul>
+                    <ul id="ulCU" class="displaynone" style="display: none;">
+                        <li id="ChinaUSMARKET"><a id="aLeft_UCpare" href="http://www.cbooo.cn/ChinaUSMARKET">大盘票房</a></li>
+                        <li id="Profitsharing"><a id="aLeft_UCpare_f" href="http://www.cbooo.cn/Profitsharing">单片对比</a></li>
+                    </ul>
+                    <ul id="ulNews" class="displaynone" style="display: none;">
+                        <li id="newslist"><a id="aLeft_information_newsList" href="http://www.cbooo.cn/newslist">最近新闻</a></li>
+                        <li id="comming"><a id="aLeft_Information_soon" href="http://www.cbooo.cn/comming">即将上映</a></li>
+                    </ul>
+                    <ul id="ulDayPlay" class="displaynone" style="display: none;">
+                        <li id="Teleplay"><a id="aLeft_Teleplay" href="http://www.cbooo.cn/Teleplay">电视剧集</a></li>
+                        <li id="Daily"><a id="aLeft_Daily" href="http://www.cbooo.cn/Daily">综艺节目</a></li>
+                        
+                    </ul>
+                    <ul id="ulDates" class="displaynone" style="display: block;">
+                        <li id="movies" class="active curr"><a id="aLeft_Mdata_movie" href="http://www.cbooo.cn/movies" class="active">影片资料库</a></li>
+                        <li id="peoples" style="border: 0px;"><a id="aLeft_Mdata_people" href="http://www.cbooo.cn/peoples">影人资料库</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            
+            $(function () {
+                InitMenu();
+                InitMenuTop();
+                $(".selected li").on("mouseover", function () {
+                    $(this).addClass("curr").siblings().removeClass("curr");
+                })
+                $(".selected li").on("mouseout", function () {
+                    if ($(this).hasClass('active')) {
+                        $(this).addClass("curr")
+                    } else {
+                        $(this).removeClass("curr").siblings('.active').addClass("curr");
+                    }
+                })
+                $(".selected li:last").css("border", "0")
+
+                
+            })
+            var _mlist_top = [
+                    { menu: "ass", url: "realtime" },
+                    { menu: "ass", url: "movieday" },
+                    { menu: "ass", url: "movieweek" },
+                    { menu: "ass", url: "weekend" },
+                    { menu: "ass", url: "monthday" },
+                    { menu: "ass", url: "year" },
+                    { menu: "ass", url: "global" },
+                    { menu: "ass", url: "history" },
+                    { menu: "ass", url: "cinemaday" },
+                    { menu: "ass", url: "realtime" },
+                    { menu: "ass", url: "Alltimedomestic" },
+                    { menu: "ass", url: "daytrend" },
+                    { menu: "ass", url: "weektrend" },
+                    { menu: "ass", url: "weekday" },
+                    { menu: "ass", url: "monthtrend" },
+                    { menu: "ass", url: "firstweek" },
+                    { menu: "ass", url: "northAmerica" },
+                    { menu: "ass", url: "hongkong" },
+                    { menu: "ass", url: "cinemaweek" },
+                    { menu: "ass", url: "topday" },
+                    { menu: "ass", url: "overbill" },
+                    { menu: "ass", url: "firstday" },
+                    { menu: "ass", url: "TopBookingRate" },
+                    { menu: "ass", url: "booking" },
+                    { menu: "ass", url: "topmonth" },
+                    { menu: "ass", url: "toppaipian" },
+                    { menu: "ass", url: "toppaipian1" },
+                    { menu: "ass", url: "topweek" },
+                    { menu: "ass", url: "nonetop" },
+                    { menu: "ass", url: "inland" },
+                    { menu: "ass", url: "topmshow" },
+                    { menu: "ass", url: "topweektol" },
+                    { menu: "ass", url: "tolmonth" },
+                    { menu: "ass", url: "auction" },
+
+                    { menu: "apaipian", url: "paipian" },
+                    { menu: "apaipian", url: "paipiantrend" },
+                    { menu: "apaipian", url: "citypaipian" },
+                    { menu: "apaipian", url: "paipian1" },
+                    { menu: "apaipian", url: "paipian2" },
+                    { menu: "apaipian", url: "paipian3" },
+
+                    { menu: "acu", url: "ChinaUSMARKET" },
+                    { menu: "acu", url: "Profitsharing" },
+                    { menu: "acu", url: "Nonprofitsharing" },
+
+                    { menu: "anews", url: "newslist" },
+                    { menu: "anews", url: "comming" },
+                    { menu: "anews", url: "news" },
+                    { menu: "anews", url: "commingnext" },
+
+                    { menu: "ateleplay", url: "Daily" },
+                    { menu: "ateleplay", url: "Teleplay" },
+
+                    { menu: "amovies", url: "movies" },
+                    { menu: "amovies", url: "peoples" },
+                    { menu: "amovies", url: "m" },
+                    { menu: "amovies", url: "c" },
+                    { menu: "amovies", url: "p" },
+                    { menu: "amovies", url: "search" }
+            ];
+            var _mlist_L = [
+                    { menu: "ulBoxOffice", url: "realtime" },
+                    { menu: "ulBoxOffice", url: "movieday" },
+                    { menu: "ulBoxOffice", url: "movieweek" },
+                    { menu: "ulBoxOffice", url: "weekend" },
+                    { menu: "ulBoxOffice", url: "monthday" },
+                    { menu: "ulBoxOffice", url: "year" },
+                    { menu: "ulBoxOffice", url: "global" },
+                    { menu: "ulBoxOffice", url: "history" },
+                    { menu: "ulBoxOffice", url: "cinemaday" },
+                    { menu: "ulBoxOffice", url: "realtime" },
+                    { menu: "ulBoxOffice", url: "Alltimedomestic" },
+                    { menu: "ulBoxOffice", url: "daytrend" },
+                    { menu: "ulBoxOffice", url: "weektrend" },
+                    { menu: "ulBoxOffice", url: "weekday" },
+                    { menu: "ulBoxOffice", url: "monthtrend" },
+                    { menu: "ulBoxOffice", url: "firstweek" },
+                    { menu: "ulBoxOffice", url: "northAmerica" },
+                    { menu: "ulBoxOffice", url: "hongkong" },
+                    { menu: "ulBoxOffice", url: "cinemaweek" },
+                    { menu: "ulBoxOffice", url: "topday" },
+                    { menu: "ulBoxOffice", url: "overbill" },
+                    { menu: "ulBoxOffice", url: "firstday" },
+                    { menu: "ulBoxOffice", url: "TopBookingRate" },
+                    { menu: "ulBoxOffice", url: "booking" },
+                    { menu: "ulBoxOffice", url: "topmonth" },
+                    { menu: "ulBoxOffice", url: "toppaipian" },
+                    { menu: "ulBoxOffice", url: "toppaipian1" },
+                    { menu: "ulBoxOffice", url: "topweek" },
+                    { menu: "ulBoxOffice", url: "nonetop" },
+                    { menu: "ulBoxOffice", url: "inland" },
+                    { menu: "ulBoxOffice", url: "topmshow" },
+                    { menu: "ulBoxOffice", url: "topweektol" },
+                    { menu: "ulBoxOffice", url: "tolmonth" },
+                    { menu: "ulBoxOffice", url: "auction" },
+
+                    { menu: "ulPaipian", url: "paipian" },
+                    { menu: "ulPaipian", url: "paipiantrend" },
+                    { menu: "ulPaipian", url: "citypaipian" },
+                    { menu: "ulPaipian", url: "paipian1" },
+                    { menu: "ulPaipian", url: "paipian2" },
+                    { menu: "ulPaipian", url: "paipian3" },
+
+                    { menu: "ulCU", url: "ChinaUSMARKET" },
+                    { menu: "ulCU", url: "Profitsharing" },
+                    { menu: "ulCU", url: "Nonprofitsharing" },
+
+                    { menu: "ulNews", url: "newslist" },
+                    { menu: "ulNews", url: "comming" },
+                    { menu: "ulNews", url: "news" },
+                    { menu: "ulNews", url: "commingnext" },
+
+                    { menu: "ulDayPlay", url: "Teleplay" },
+                    { menu: "ulDayPlay", url: "Daily" },
+
+                    { menu: "ulDates", url: "movies" },
+                    { menu: "ulDates", url: "peoples" },
+                    { menu: "ulDates", url: "m" },
+                    { menu: "ulDates", url: "c" },
+                    { menu: "ulDates", url: "p" },
+                    { menu: "ulDates", url: "search" }
+            ];
+            var _mlist_menu = [
+                { menu: "ss", url: "realtime" },
+                { menu: "ss", url: "TopBookingRate" },
+                { menu: "ss", url: "booking" },
+                { menu: "movieday", url: "movieday" },
+                { menu: "movieday", url: "daytrend" },
+                { menu: "movieweek", url: "movieweek" },
+                { menu: "movieweek", url: "weektrend" },
+                { menu: "weekend", url: "weekend" },
+                { menu: "weekend", url: "weekday" },
+                { menu: "monthday", url: "monthday" },
+                { menu: "monthday", url: "monthtrend" },
+                { menu: "year", url: "year" },
+                { menu: "year", url: "firstweek" },
+                { menu: "global", url: "global" },
+                { menu: "global", url: "northAmerica" },
+                { menu: "global", url: "hongkong" },
+                { menu: "history", url: "history" },
+                { menu: "history", url: "topday" },
+                { menu: "history", url: "Alltimedomestic" },
+                { menu: "history", url: "overbill" },
+                { menu: "history", url: "firstday" },
+                { menu: "history", url: "topmonth" },
+                { menu: "history", url: "toppaipian" },
+                { menu: "history", url: "toppaipian1" },
+                { menu: "history", url: "topweek" },
+                { menu: "history", url: "nonetop" },
+                { menu: "history", url: "inland" },
+                { menu: "history", url: "topmshow" },
+                { menu: "history", url: "topweektol" },
+                { menu: "history", url: "tolmonth" },
+                { menu: "history", url: "auction" },
+
+                { menu: "cinemaday", url: "cinemaday" },
+                { menu: "cinemaday", url: "cinemaweek" },
+                { menu: "paipian", url: "paipian" },
+                { menu: "paipian", url: "citypaipian" },
+                { menu: "paipian", url: "paipian1" },
+                { menu: "paipian", url: "paipian2" },
+                { menu: "paipian", url: "paipian3" },
+                { menu: "paipiantrend", url: "paipiantrend" },
+                { menu: "FilmTGI", url: "FilmTGI" },
+                { menu: "BuyTicketTGI", url: "BuyTicketTGI" },
+                { menu: "WoMTGI", url: "WoMTGI" },
+                { menu: "ChinaUSMARKET", url: "ChinaUSMARKET" },
+                { menu: "Profitsharing", url: "Profitsharing" },
+                { menu: "Profitsharing", url: "Nonprofitsharing" },
+                { menu: "newslist", url: "newslist" },
+                { menu: "newslist", url: "news" },
+                { menu: "comming", url: "comming" },
+                { menu: "comming", url: "commingnext" },
+                { menu: "Teleplay", url: "Teleplay" },
+                { menu: "Daily", url: "Daily" },
+                { menu: "movies", url: "movies" },
+                { menu: "movies", url: "m" },
+                { menu: "movies", url: "c" },
+                { menu: "peoples", url: "peoples" },
+                { menu: "peoples", url: "p" }
+                
+            ];
+            function InitMenu()
+            {
+                var menuname = window.location.pathname
+                menuname = menuname.substring(1);
+                if (menuname.indexOf("/") != -1)
+                    menuname = menuname.substring(0, menuname.indexOf("/"));
+                if (menuname.indexOf("?") != -1)
+                    menuname = menuname.substring(0, menuname.indexOf("?"));
+                
+                
+                $("#cbomenuleft ul").css("display", "none");
+                for (var i = 0; i < _mlist_L.length; i++){
+                    if (menuname == _mlist_L[i].url){
+                        $("#" + _mlist_L[i].menu).css("display", "block");
+                        break;
+                    }
+                }
+                //$("#cbomenuleft ul li").removeClass("active").removeClass("curr");
+                for (var i = 0; i < _mlist_menu.length; i++){
+                    if (menuname == _mlist_menu[i].url){
+                        $("#" + _mlist_menu[i].menu).addClass("active").addClass("curr");
+                        break;
+                    }
+                }
+                
+            }
+
+            function InitMenuTop()
+            {
+                var menuname = window.location.pathname
+                menuname = menuname.substring(1);
+                if (menuname.lastIndexOf("/") != -1)
+                    menuname = menuname.substring(0, menuname.indexOf("/"));
+                if (menuname.lastIndexOf("?") != -1)
+                    menuname = menuname.substring(0, menuname.indexOf("?"));
+
+                $("#topmenu li a").removeClass("active");
+                for (var i = 0; i < _mlist_top.length; i++) {
+                    if (menuname == _mlist_top[i].url) {
+                        $("#" + _mlist_top[i].menu).addClass("active");
+                        break;
+                    }
+                }
+            }
+        </script>
+       
+        <!--menu end-->
+        <div class="mainbox fr">
+            
+<div class="mainbox fr">
+    <!--中间-->
+    <div class="ziliaoku">
+        <div class="imgfl"><img style="height:260px;" src="./boxOffice_files/219107.jpg" alt="头号玩家"></div>
+        <div class="ziliaofr">
+            <div class="cont">
+                <h2>头号玩家<span>（2018）</span><p>Ready Player One</p></h2>
+                    <p>
+                            <span class="m-span">今日实时票房<br>530.1万</span>
+                                                    <span class="m-span">累计票房<br>122438.7万</span>
+                    </p>
+
+                <p>类型：科幻</p>
+                <p>
+                        片长
+                    ：
+                </p>
+                <p>
+                        上映时间：2018-3-30（中国）
+                </p>
+                    <p>制式：2D/3D/IMAX</p>
+                <p>国家及地区：美国</p>
+                <p>
+                    发行公司：<a target="_blank" href="http://www.cbooo.cn/c/6" title="中国电影集团公司">中国电影集团公司</a>
+                </p>
+            </div>
+            <div class="starring">
+                <div class="title03"><h3>主演：</h3></div>
+                <ul class="sideimg">
+                            <li>
+                                <div class="img">
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2200361" title=""><img onerror="this.src=&#39;http://www.cbooo.cn/moviepic/default002.jpg&#39;" src="./boxOffice_files/default002.jpg" alt="泰尔·谢里丹"></a>
+                                </div>
+                                <h5><a target="_blank" href="http://www.cbooo.cn/p/2200361" title="泰尔·谢里丹">泰尔·谢里丹</a></h5>
+                                <p>国籍：</p>
+                                
+                                <p>生日：</p>
+                            </li>
+                            <li>
+                                <div class="img">
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2197876" title=""><img onerror="this.src=&#39;http://www.cbooo.cn/moviepic/default002.jpg&#39;" src="./boxOffice_files/default002.jpg" alt="奥利维亚·库克"></a>
+                                </div>
+                                <h5><a target="_blank" href="http://www.cbooo.cn/p/2197876" title="奥利维亚·库克">奥利维亚·库克</a></h5>
+                                <p>国籍：</p>
+                                
+                                <p>生日：</p>
+                            </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <ul id="tab" class="ultab ultab03">
+            <li class="current">
+                    影片资料
+            </li>
+            <li>
+                    票房统计
+            </li>
+
+                <li>营销事件</li>
+            
+        </ul>
+        <div id="content" class="borbg pad02">
+            <div id="tabcont1" style="width:100%;">
+                <dl class="dltext">
+                    <dt>导演：</dt>
+                    <dd>
+                                <p><a target="_blank" href="http://www.cbooo.cn/p/46328" title="史蒂文·斯皮尔伯格 Steven Spielberg">史蒂文·斯皮尔伯格 Steven Spielberg</a><span></span></p>
+
+                    </dd>
+                    <dt>主演：</dt>
+                    <dd>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2200361" title="泰尔·谢里丹 Tye Sheridan">
+泰尔·谢里丹 Tye Sheridan                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2197876" title="奥利维亚·库克 Olivia Cooke">
+奥利维亚·库克 Olivia Cooke                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/304381" title="本·门德尔森 Ben Mendelsohn">
+本·门德尔森 Ben Mendelsohn                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/117861" title="西蒙·佩吉 Simon Pegg">
+西蒙·佩吉 Simon Pegg                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/747256" title="马克·里朗斯 Mark Rylance">
+马克·里朗斯 Mark Rylance                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/214667" title="T·J·米勒 T.J. Miller">
+T·J·米勒 T.J. Miller                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2273666" title="汉娜·乔恩·卡门 Hannah John-Kamen">
+汉娜·乔恩·卡门 Hannah John-Kamen                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2273665" title="森崎Win Win Morisaki">
+森崎Win Win Morisaki                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2103635" title="西蒙妮·科尔比 Simone Kirby">
+西蒙妮·科尔比 Simone Kirby                                    </a><span></span>
+                                </p>
+                                <p>
+                                    <a target="_blank" href="http://www.cbooo.cn/p/2210391" title="劳伦斯·斯佩尔曼 Laurence Spellman">
+劳伦斯·斯佩尔曼 Laurence Spellman                                    </a><span></span>
+                                </p>
+
+                    </dd>
+                    <dt>制作公司：</dt>
+                    <dd>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/117" title="美国华纳兄弟影片公司">美国华纳兄弟影片公司 Warner Bros. Pictures </a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/4731" title="美国安培林娱乐公司">美国安培林娱乐公司 Amblin Entertainment</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/36023" title=""> De Line Pictures</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/8029" title="美国梦工厂影片公司">美国梦工厂影片公司  DreamWorks Pictures</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/145698" title=""> Farah Films &amp; Management</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/84393" title=""> Random House Films</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/165964" title="RatPac娱乐公司">RatPac娱乐公司 RatPac-Dune Entertainment</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/153979" title=""> Reliance Entertainment</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/18034" title="美国威秀影片公司 ">美国威秀影片公司  Village Roadshow Pictures </a></p>
+
+                    </dd>
+                    <dt>发行公司：</dt>
+                    <dd>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/6" title="中国电影集团公司">中国电影集团公司 China Film Group Corporation</a></p>
+                                <p><a target="_blank" href="http://www.cbooo.cn/c/138681" title="华夏电影发行有限责任公司">华夏电影发行有限责任公司 Huaxia Film Distribution Co.,Ltd</a></p>
+
+                    </dd>
+                </dl>
+            </div>
+            <div id="tabcont2" style="display:none;width:100%;">
+                        <h4 class="tit-xq">
+                            内地票房&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="javascript:void(0);" style="font-size:14px; color:#109bee; cursor:default; text-decoration:none;">总票房：122,472万</a>
+                            <span style="float:right; padding-right:20px; font-size:12px;">(货币单位：人民币)</span>
+                        </h4>
+                        <table class="datebg datebg01 datebg03">
+                            <tbody><tr>
+                                <th></th>
+                                <th>场均人次（人）</th>
+                                <th>单周票房（万）</th>
+                                <th>累计票房（万）</th>
+                                <th class="last">上映天数</th>
+                            </tr>
+                                <tr>
+                                        <td class="bgtop">
+                                    <span>第3周</span>2018年04月09日-04月15日
+                                </td>
+                                <td class="arrow">10</td>
+                                <td>18569</td>
+                                <td>120878</td>
+                                <td class="last">17</td>                                
+                                </tr>
+                                <tr>
+                                        <td class="bgcent">
+                                    <span>第2周</span>2018年04月02日-04月08日
+                                </td>
+                                <td class="arrow">24</td>
+                                <td>63302</td>
+                                <td>102309</td>
+                                <td class="last">10</td>                                
+                                </tr>
+                                <tr>
+                                        <td class="bgbottom">
+                                    <span>第1周</span>2018年03月26日-04月01日
+                                </td>
+                                <td class="arrow">34</td>
+                                <td>39006</td>
+                                <td>39006</td>
+                                <td class="last">3</td>                                
+                                </tr>
+                        </tbody></table>
+
+                        <h4 class="tit-xq">
+                            香港票房
+                            <span style="float:right; padding-right:20px; font-size:12px;">(货币单位：港币)</span>
+                        </h4>
+                        <table class="datebg datebg01 datebg03">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>本周排名</th>
+                                    <th>单周票房（万）</th>
+                                    <th class="last">累计票房（万）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                <td class="bgtop">
+                                <span>第2周</span>2018年 04月02日-04月08日
+                                </td>
+                                    <td class="arrow">1</td>
+                                    <td>1874</td>
+                                    <td class="lasta">3130</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 class="tit-xq">
+                            北美票房
+                            <span style="float:right; padding-right:20px; font-size:12px;">(货币单位：美元)</span>
+                        </h4>
+                        <table class="datebg datebg01 datebg03">
+                            <tbody><tr>
+                                <th></th>
+                                <th>本周排名</th>
+                                <th>周末票房（万）</th>
+                                <th class="last">累计票房（万）</th>
+                                
+                            </tr>
+
+                                <tr>
+                                <td class="bgtop">
+                                <span>第3周</span>2018年 04月13日-04月15日
+                                </td>
+                                <td class="arrow">4</td>
+                                <td>1151</td>
+                                <td class="lasta">11492</td>
+                            </tr>
+                                <tr>
+                               <td class="bgcent">
+                                <span>第2周</span>2018年 04月06日-04月08日
+                                </td>
+                                <td class="arrow">2</td>
+                                <td>2506</td>
+                                <td class="lasta">9692</td>
+                            </tr>
+                                <tr>
+                            <td class="bgbottom">
+                                <span>第1周</span>2018年 03月30日-04月01日
+                                </td>
+                                <td class="arrow">1</td>
+                                <td>4176</td>
+                                <td class="lasta">5371</td>
+                            </tr>
+                        </tbody></table>
+
+            </div>
+            <div id="tabcont3" style="display: none; width:100%; height:640px;">
+                <div id="divEvent"><a name="all"></a><div class="tabBox"><ul class="tbNum"><li class="focus"><a href="http://www.cbooo.cn/m/657862#all">全部</a></li><li><a href="http://www.cbooo.cn/m/657862#20184">4月</a></li><li><a href="http://www.cbooo.cn/m/657862#20183">3月</a></li></ul><div class="tabText"><div class="item" style="display:block"><h4 class="topIcon" title="头号玩家">头号玩家</h4><div style="overflow-y:scroll;overflow-x:hidden; width:120%; height:500px;margin-left: -60px;"><ul><li><em><span style="font-size:14px;">后4天</span></em><h5>片段</h5><div class="tabTcon"><a name="20184"></a><h4>曝正片片段 极速赛车彩蛋翻飞</h4><var>Mtime时光网 2018-04-03</var><p>由华纳兄弟影片公司出品，金奖名导史蒂文·斯皮尔伯格执导的科幻动作冒险巨制《头号玩家》已于3月30日在中国内地与北美同步上映。影片上映四天，票房轻松达到4.51亿，在各大平台的评分依旧强劲，均保持9分以上的高分。片方今日发布一支“极速狂飙”正片片段，寻找彩蛋第一关的飞车大赛震撼呈现...<a href="http://news.mtime.com/2018/04/03/1579470.html" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前1天</span></em><h5>点映</h5><div class="tabTcon"><a name="20183"></a><h4>百场点映今日开启 46城观众领略科幻神作</h4><var>凤凰网娱乐 2018-03-29</var><p>由华纳兄弟影片公司出品，金奖名导史蒂文·斯皮尔伯格执导的科幻动作冒险巨制《头号玩家》将于3月30日在中国内地与北美同步上映。目前，影片在豆瓣以9.1的超高评分开局，彰显强大口碑。今日，跨越全国的100场点映正式开启，包括北京、上海、广州在内的46座城市的观众即将一睹这部高口碑科幻力作的风采...<a href="http://ent.ifeng.com/a/20180329/43038392_0.shtml" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前7天</span></em><h5>预告片</h5><div class="tabTcon"><h4>曝中国独家终极预告 打造奇幻世界</h4><var>搜狐娱乐 2018-03-23</var><p>由史蒂文-斯皮尔伯格执导的科幻动作冒险巨制《头号玩家》将于3月30日在中国内地与北美同步上映。今日片方发布中国独家终极预告及海报，预告片节奏激烈刺激，曝光诸多全新画面，经典IP纷纷登场，“绿洲五强”与反派IOI的对抗也进入白热化，终极冒险一触即发...<a href="https://www.sohu.com/a/226196150_114733" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前8天</span></em><h5>海报</h5><div class="tabTcon"><h4>曝杜比海报未来感十足 末日大战来袭</h4><var>Mtime时光网 2018-03-22</var><p>《头号玩家》发布杜比影院版独家海报，以神奇的虚拟世界“绿洲”为背景，强大的机甲战士，凶猛的怪兽，撞击的车辆和天空中肆意飞舞的生物都显露出浓重的末日气息。<a href="http://news.mtime.com/2018/03/22/1579150.html" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前18天</span></em><h5>预告片</h5><div class="tabTcon"><h4>曝再续传奇预告 导演斯皮尔伯格尝试新技术</h4><var>搜狐娱乐 2018-03-12</var><p>由华纳兄弟影片公司出品，金奖名导史蒂文-斯皮尔伯格执导的科幻动作冒险巨制《头号玩家》将于3月30日在中国内地与北美同步上映。今日片方曝光一支“再续传奇”预告片和全新电影角色海报，进一步展示了影片惊艳壮观的视觉效果和热血沸腾的宏大场面，以及燃爆荷尔蒙的全民激战。在最新预告中...<a href="https://www.sohu.com/a/225364473_114733" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前21天</span></em><h5>预告片</h5><div class="tabTcon"><h4>曝预告解锁剧情 影视游戏经典IP集结</h4><var>Mtime时光网 2018-03-09</var><p>史蒂文·斯皮尔伯格执导的科幻动作冒险巨制《头号玩家》曝剧情预告片，主角“绿洲五强”集体亮相，联合数不清的经典游戏和电影IP发起一场虚拟现实大战。<a href="http://news.mtime.com/2018/03/09/1578796.html" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前23天</span></em><h5>预告片</h5><div class="tabTcon"><h4>曝勇闯未知预告 未来世界充满神奇</h4><var>搜狐娱乐 2018-03-07</var><p>由华纳兄弟影片公司出品，史蒂文-斯皮尔伯格执导的科幻动作冒险巨制《头号玩家》将于3月30日在中国内地与北美同步上映。今日，影片发布一款“勇闯未知”预告，呈现出一个充满神奇与想象的虚拟世界，而一段险象环生的寻宝冒险也蓄势待发。在这支预告片中...<a href="https://www.sohu.com/a/225014644_114733" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前23天</span></em><h5>海报</h5><div class="tabTcon"><h4>发布致敬海报 《回到未来》《黑客帝国》等一网打尽</h4><var>今日头条 2018-03-07</var><p>由斯皮尔伯格导演的科幻大片《头号玩家》即将于3月30日内地上映，日前曝光一组新海报，致敬了许多经典的科幻/奇幻片。哪些片是你曾经的热爱？<a href="http://toutiao.com/group/6530053816753062413/" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li><li><em><span style="font-size:14px;">前26天</span></em><h5>定档</h5><div class="tabTcon"><h4>定档3.30 中美同步上映</h4><var>一点资讯 2018-03-04</var><p>定档了！！斯皮尔伯格年度科幻巨制《头号玩家》国内正式定档3月30号上映，只比北美迟一天！！电影的视觉效果和大场面惊艳壮观，绝对是今年的重头大戏！海外内部试映后，观众都表示：high爆了！！年度必看啊<a href="http://www.yidianzixun.com/mp/content?id=50544751" style="color:#42b1f2;text-decoration:underline;" target="_blank">阅读全部</a></p></div></li></ul><div></div></div></div></div></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="row-xxyp">
+        <div class="title02"><h3>相关影片</h3></div>
+        <ul class="sideimg">
+                    <li>
+                        <div class="img">
+                            <a target="_blank" href="http://www.cbooo.cn/m/565987" title="">
+                                <img onerror="this.src=&#39;../../Content/images/nopic.jpg&#39;" src="./boxOffice_files/108482.jpg" alt="古墓丽影：源起之战">
+                            </a>
+                        </div>
+                        <h5><a target="_blank" href="http://www.cbooo.cn/m/565987" title="">古墓丽影：源起之战</a></h5>
+                        <p>导演：罗阿尔·乌索格</p>
+                        <p>主演：艾丽西亚·维坎德</p>
+                        <p>上映时间：2018年3月16日</p>
+                        </li>
+                    <li>
+                        <div class="img">
+                            <a target="_blank" href="http://www.cbooo.cn/m/670585" title="">
+                                <img onerror="this.src=&#39;../../Content/images/nopic.jpg&#39;" src="./boxOffice_files/232987.jpg" alt="至暗时刻">
+                            </a>
+                        </div>
+                        <h5><a target="_blank" href="http://www.cbooo.cn/m/670585" title="">至暗时刻</a></h5>
+                        <p>导演：乔·赖特</p>
+                        <p>主演：加里·奥德曼</p>
+                        <p>上映时间：2017年12月1日</p>
+                        </li>
+                        <li class="noline">
+                        <div class="img">
+                            <a target="_blank" href="http://www.cbooo.cn/m/654309" title="">
+                                <img onerror="this.src=&#39;../../Content/images/nopic.jpg&#39;" src="./boxOffice_files/230741.jpg" alt="敦刻尔克">
+                            </a>
+                        </div>
+                        <h5><a target="_blank" href="http://www.cbooo.cn/m/654309" title="">敦刻尔克</a></h5>
+                        <p>导演：克里斯托弗·诺兰</p>
+                        <p>主演：汤姆·哈迪</p>
+                        <p>上映时间：2017年9月1日</p>
+                        </li>
+
+        </ul>
+        
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".tbNum li").click(function () {
+            var j = $(this).index();
+            $(this).addClass("focus").siblings("li").removeClass("focus");
+            $(".tabText > div").eq(j).css("display", "block").siblings("div.item").css("display", "none");
+        })
+    })
+</script>
+        </div>
+        
+        <div class="code-box">
+            <p><img src="./boxOffice_files/codeimg.jpg" alt=""></p>
+            <p>下载App获取更多数据</p>
+        </div>
+    </div>
+    <!--footer end-->
+    <div class="footer">
+        <div class="mod1024">
+            <div class="attention fl">
+                <a id="apopSenderFoot" href="javascript:void(0)">
+                
+                <span class="icon02">扫我</span>
+                </a>
+            </div>
+            <div>
+                <p>
+                    Copyright 2014 ChinaBoxOffice 北京 All rights reserved. </p>
+            </div>
+        </div>
+    </div>
+    <!--footer end-->
+    <ul class="cbobar">
+	<li class="sharehover">
+		
+	</li>
+	<li class="codehover">
+		<div id="dQrCode" class="codebar curr" title="二维码">
+	    	<b class="baron">二维码</b>
+	    </div>
+	    <div id="dcodebox" class="codebox">
+	    	<dl>
+				<dt><img id="imgQrCode" src="http://www.cbooo.cn/m/657862"></dt>
+				<dd><p>扫描二维码</p></dd>
+			</dl>
+    </div>
+	</li>
+	<li>
+		<div class="topbar" title="返回顶部" method="backtop">
+	    	<a class="baron" href="http://www.cbooo.cn/m/657862#top">返回顶部</a>
+	    </div>
+	</li>
+</ul>
+<div id="divFenx" style="display:none;"></div>
+    
+    <!-- 微信二维码 -->
+    <script>
+        $(".code-box").hover(function () {
+            $(this).find('.code-warp').css("display", "block")
+        },
+     function () {
+         $(this).find(".code-warp").css("display", "none")
+     })
+
+    </script>
+    <!-- 微信二维码 end -->
+    <script src="./boxOffice_files/tendina.js.下载"></script>
+
+
+<script type="text/javascript">    
+    var _weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    function enterSearch(){
+        var event = window.event || arguments.callee.caller.arguments[0];
+        if (event.keyCode == 13){
+            search();
+        }
+    }
+    $(function () {
+        //菜单折叠事件
+        $(".bigMenu").bind("click", function () {
+            $(this).parent().children("ul").slideToggle();
+            $(this).parent().toggleClass("selected");
+        });        
+    });
+    $("#apopSender").hover(function (event) {
+        event.stopPropagation();
+        var offset = $(event.target).offset();
+        $("#divPop").css({ top: offset.top + $(event.target).height() + "px", left: offset.left });
+        $("#divPop").show();
+    }, function (event) {
+        $(".attention-pop").hide();
+    });
+    $("#apopSenderFoot").hover(function (event) {
+        event.stopPropagation();
+        var offset = $(event.target).offset();
+        $("#divPop").css({ top: offset.top - 10 - $("#divPop").height() + "px", left: offset.left });
+        $("#divPop").show();
+    }, function (event) {
+        $(".attention-pop").hide();
+    });
+    $("#divPop").hover(function (event) {
+        event.stopPropagation();
+        
+        $("#divPop").show();
+    }, function (event) {
+        $(".attention-pop").hide();
+    });
+    //搜索框事件
+    function clearText(elmObj) {
+        if (elmObj.value == '请输入影片/影人名称') elmObj.value = '';
+    }
+    function checkText(elmObj) {
+        if (elmObj.value == '') elmObj.value = '请输入影片/影人名称';
+    }
+    //获取url参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    //搜索事件
+    function search() {
+        var txtSearch = $('#txtSearch').val();
+        var url = '/search?k=' + encodeURI(txtSearch);
+        
+        if (txtSearch == '请输入影片/影人名称' || txtSearch == '' || txtSearch == 'null')
+            return;
+        window.location.href = url;
+    }
+    
+    $(document).ready(function () {
+        $("#dQrCode").bind("click", function () {
+            if($("#dcodebox").css("display") != "block"){
+                $("#imgQrCode").attr("src", "/Information/GetQrCode?url=http://www.cbooo.cn:8001/m/657862");
+            }
+            $("#dcodebox").toggle();
+        });
+    //菜单选中
+    $("#aLeft_Mdata_movie").addClass("active");
+    });
+</script>
+</body></html>

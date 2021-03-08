@@ -1,0 +1,86 @@
+[
+  {
+    "actionTag": "boy",
+    "isSelected": true,
+    "actionId": "500268",
+    "title": "畅销榜-周榜"
+  },
+  {
+    "actionTag": "boy",
+    "isSelected": false,
+    "actionId": "500269",
+    "title": "畅销榜-月榜"
+  },
+  {
+    "actionTag": "boy",
+    "isSelected": false,
+    "actionId": "500270",
+    "title": "畅销榜-总榜"
+  },
+  {
+    "actionTag": "boy",
+    "isSelected": true,
+    "actionId": "501192",
+    "title": "原创文学风云榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": true,
+    "actionId": "501193",
+    "title": "原创文学风云榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": true,
+    "actionId": "500271",
+    "title": "畅销榜-周榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": false,
+    "actionId": "500272",
+    "title": "畅销榜-月榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": false,
+    "actionId": "500273",
+    "title": "畅销榜-总榜"
+  },
+  {
+    "actionTag": "boy",
+    "isSelected": true,
+    "actionId": "500417",
+    "title": "推荐榜-周榜"
+  },
+  {
+    "actionTag": "boy",
+    "isSelected": false,
+    "actionId": "500418",
+    "title": "推荐榜-月榜"
+  },
+  {
+    "actionTag": "boy",
+    "isSelected": false,
+    "actionId": "500419",
+    "title": "推荐榜-总榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": true,
+    "actionId": "500420",
+    "title": "推荐榜-周榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": false,
+    "actionId": "500421",
+    "title": "推荐榜-月榜"
+  },
+  {
+    "actionTag": "girl",
+    "isSelected": false,
+    "actionId": "500422",
+    "title": "推荐榜-总榜"
+  }
+]

@@ -1,0 +1,22 @@
+# boot
+spring.main.banner_mode=off
+
+# server
+server.port = 0
+
+# onespider supervisor
+onespider.master.host=http://127.0.0.1:9900
+
+# onespider store
+onespider.store.host=http://127.0.0.1:9800
+
+logging.level.root=DEBUG
+logging.level.org.springframework=ERROR
+logging.level.org.hibernate=ERROR
+logging.level.org.apache.tomcat=ERROR
+logging.level.org.apache.http=ERROR
+logging.level.com.gargoylesoftware.htmlunit=ERROR
+
+# weibo account
+onespider.account.weibo.username=
+onespider.account.weibo.password=

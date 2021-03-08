@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:include="temp :: header"></head>
+<style type="text/css">
+    #inputDiv{margin-top: 100px}
+</style>
+<body>
+
+<div class="container">
+    <div id="inputDiv" class="row">
+        <div th:if="${param.error}">
+            用户名或密码错
+        </div>
+        <div th:if="${param.logout}">
+            您已注销成功
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form" th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label> 用户名 : </label>
+                    <input type="text" class="form-control" name="username"/>
+                </div>
+                <div  class="form-group">
+                    <label> 密 码 : </label><input type="password" class="form-control" name="password"/>
+                </div>
+                <input type="submit"  class="btn btn-default" value=" 登 录 "/>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

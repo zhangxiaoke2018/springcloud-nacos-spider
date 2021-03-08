@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="temp :: header"></head>
+<style type="text/css">
+    #inputDiv{margin-top: 300px;}
+</style>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:include="temp :: nav"></nav>
+
+<div class="container">
+    <div id="inputDiv" class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <p class="bg-danger" th:text="${param.isEmpty()} ? '' :${param.msg[0]}"></p>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+<!--             <form class="form-inline" th:action="@{/seed}" method="POST" th:method="post"> -->
+<!-- 	            <div class="form-group"> -->
+<!-- 	                <label for="url">网址:</label> -->
+<!-- 	                <input type="text" class="form-control" id="url" name="url"  style="width: 400px;" placeholder="http://www.xxx.com/xxx/xxx.html"/> -->
+<!-- 	            </div> -->
+<!-- 	            <button type="submit" class="btn btn-default"> 确 定 </button> -->
+<!-- 	        </form> -->
+        </div>
+    </div>
+
+</div><!-- /.container -->
+<footer th:include="temp :: footer"></footer>
+</body>
+</html>

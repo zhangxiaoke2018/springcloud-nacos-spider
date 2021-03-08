@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="temp :: header"></head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		th:include="temp :: nav"></nav>
+
+	<div class="container">
+
+		<div id="main" class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form class="form" method="get" action="/setting/list">
+					<div class="input-group">
+						<input name="domain" type="text" class="form-control"
+							placeholder="请输入域名地址.." /> <span class="input-group-btn">
+							<button class="btn btn-default" type="submit">查询</button>
+						</span>
+					</div>
+				</form>
+			</div>
+
+			<div id="mainContent" th:unless="${#lists.isEmpty(paginator)}">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>域名</th>
+							<th>并行线程数量</th>
+							<th>请求间隔(ms)</th>
+							<th>频率(s)</th>
+							<th>请求失败重复次数</th>
+							<th>使用代理</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody th:unless="${#lists.isEmpty(paginator.entites)}">
+						<tr th:each="s : ${paginator.entites}">
+							<td th:text="${s.domain}"><a class="btn btn-default-sm"
+								th:href="@{/setting/list(code=${s.code})}">Domain</a></td>
+							<td th:text="${s.threadNum}">ThreadNum</td>
+							<td th:text="${s.sleepTime}">SleepTime</td>
+							<td th:text="${s.frequency}">Frequency</td>
+							<td th:text="${s.retryTimes}">RetryTimes</td>
+							<td th:text="${s.httpProxyEnabled}">httpProxyEnabled</td>
+							<td><a class="btn btn-primary"
+								th:href="@{/setting/get(id=${s.id})}">修改</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<nav aria-label="pagination">
+					<ul class="pager">
+						<li th:if="${paginator.isFristPage() == false}"><a href="#"
+							th:href="@{/setting/list(page=1)}">第一页</a></li>
+						<li th:if="${paginator.hasPrevPage()}"><a href="#"
+							th:href="@{/setting/list(page=${paginator.pagePrev})}">上一页</a></li>
+						<li th:if="${paginator.hasNextPage()}"><a href="#"
+							th:href="@{/setting/list(page=${paginator.pageNext})}">下一页</a></li>
+						<li th:if="${paginator.isLastPage() == false}"><a href="#"
+							th:href="@{/setting/list(page=${paginator.pageCount})}">最后一页</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<footer th:include="temp :: footer"></footer>
+</body>
+</html>

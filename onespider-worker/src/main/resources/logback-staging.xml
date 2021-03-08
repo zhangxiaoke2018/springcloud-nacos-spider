@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    
+    <property name="PROJECT_NAME" value="onespider-worker" />
+    <property name="LOG_FILE" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/${PROJECT_NAME}.log"/>
+    
+    <appender name="main_log_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder charset="UTF-8">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+
+        <file>${LOG_FILE}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${LOG_FILE}.%i</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>300MB</maxFileSize>
+		</triggeringPolicy>
+    </appender>
+    
+    <logger name="com.jinguduo.spider" additivity="true">
+        <level value="info" />
+        <appender-ref ref="main_log_file" />
+    </logger>
+    
+    <root level="WARN">
+        <appender-ref ref="main_log_file" />
+    </root>
+</configuration>

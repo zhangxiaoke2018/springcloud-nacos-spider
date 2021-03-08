@@ -1,0 +1,31 @@
+# local dev properties
+application-dev.properties
+
+# bin
+*.class
+
+# package files
+*.jar
+*.war
+*.ear
+
+# eclipse
+.classpath
+.project
+.settings
+
+# idea
+.idea
+*.iml
+*.ipr
+*.iws
+
+# maven build
+target/
+
+# mac
+.DS_Store
+
+# revision
+revision
+/onespider-store/src/main/resources/logback-dev.xml

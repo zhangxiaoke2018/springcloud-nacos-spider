@@ -1,0 +1,85 @@
+jQuery19102759763043414536_1465884369999(
+{
+  "soso_err": 0,
+  "video_play_list": {
+    "btn_text": "立即播放",
+    "cnt": 5,
+    "has_more": 0,
+    "is_mix_free_vip_episode": "0",
+    "pay_type": "0",
+    "playlist": {
+      "2016": [
+        {
+          "downright": "+1+2+3+4+5+8+9+",
+          "entity_type": "cover",
+          "episode_number": "2016-06-09",
+          "id": "k9gaf8f7u1ef8jz",
+          "is_new": "1",
+          "leading_actor": "+徐海乔+郭俊辰+徐璐+魏晨+阮经天+陈意涵+",
+          "pic": "http://puui.qpic.cn/vcover_hz_pic/0/k9gaf8f7u1ef8jzt1465448426.jpg/498",
+          "title": "[完整版]第5期：徐海乔版太阳的后裔超甜",
+          "type": "1",
+          "url": "http://v.qq.com/cover/k/k9gaf8f7u1ef8jz/x00204m68a9.html",
+          "vid": "x00204m68a9"
+        },
+        {
+          "downright": "+1+2+3+4+5+8+9+",
+          "entity_type": "cover",
+          "episode_number": "2016-06-02",
+          "id": "kohkdtsojn1l2kj",
+          "is_new": "0",
+          "leading_actor": "+林更新+徐璐+魏晨+阮经天+李菲儿+",
+          "pic": "http://puui.qpic.cn/vcover_hz_pic/0/kohkdtsojn1l2kjt1464881684.jpg/498",
+          "title": "[完整版]第4期：林更新徐璐网吧撸啊撸",
+          "type": "1",
+          "url": "http://v.qq.com/cover/k/kohkdtsojn1l2kj/g002051dwlm.html",
+          "vid": "g002051dwlm"
+        },
+        {
+          "downright": "+1+2+3+4+5+8+9+",
+          "entity_type": "cover",
+          "episode_number": "2016-05-26",
+          "id": "jr9xq8979t71yvj",
+          "is_new": "0",
+          "leading_actor": "+魏晨+阮经天+大张伟+陈赫+徐璐+黄景瑜+",
+          "pic": "http://puui.qpic.cn/vcover_hz_pic/0/jr9xq8979t71yvjt1464094819.jpg/498",
+          "title": "[完整版]第3期:阮经天魏晨拍婚纱照",
+          "type": "1",
+          "url": "http://v.qq.com/cover/j/jr9xq8979t71yvj/e00201b412i.html",
+          "vid": "e00201b412i"
+        },
+        {
+          "downright": "+1+2+3+4+5+8+9+",
+          "entity_type": "cover",
+          "episode_number": "2016-05-19",
+          "id": "7s8a2hc25bvn6i9",
+          "is_new": "0",
+          "pic": "http://puui.qpic.cn/vcover_hz_pic/0/7s8a2hc25bvn6i9t1463556829.jpg/498",
+          "title": "[完整版]第2期：黄景瑜徐璐跳鸡血操",
+          "type": "1",
+          "url": "http://v.qq.com/cover/7/7s8a2hc25bvn6i9/n0020y7opl2.html",
+          "vid": "n0020y7opl2"
+        },
+        {
+          "downright": "+1+2+3+4+5+8+9+",
+          "entity_type": "cover",
+          "episode_number": "2016-05-12",
+          "id": "tu0kfx77pkwk3t6",
+          "is_new": "0",
+          "leading_actor": "+陈赫+阮经天+撒贝宁+徐璐+黄景瑜+",
+          "pic": "http://puui.qpic.cn/vcover_hz_pic/0/tu0kfx77pkwk3t6t1463040025.jpg/498",
+          "title": "[完整版]第1期：陈赫黄景瑜被假发玩坏",
+          "type": "1",
+          "url": "http://v.qq.com/cover/t/tu0kfx77pkwk3t6/k00205g5xhk.html",
+          "vid": "k00205g5xhk"
+        }
+      ]
+    },
+    "render_type": 1,
+    "spec_episode": "0",
+    "total_episode": "5",
+    "year": [
+      "2016"
+    ]
+  }
+})

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="temp :: header"></head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:include="temp :: nav"></nav>
+
+<div class="container">
+    <div id="main" class="row">
+    <div th:unless="${#lists.isEmpty(jobWrappers)}">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form" method="post" th:each="jw : ${jobWrappers}">
+                <div class="form-group">
+                    <label>id:</label>
+                    <input type="text" class="form-control" name="id" th:value="${jw}?${jw.job.id}:''" readonly="readonly"/>
+                    
+                    <label>code:</label>
+                    <input type="text" class="form-control" name="code" th:value="${jw}?${jw.job.code}:''" readonly="readonly"/>
+                </div>
+                
+                <div class="form-group">
+                    <label>url:</label>
+                    <input type="text" class="form-control" name="url" th:value="${jw}?${jw.job.url}:''" readonly="readonly"/>
+                </div>
+                
+                <div class="form-group" >
+                    <label>show id:</label>
+                    <input type="text" class="form-control" name="showId" th:value="${jw}?${jw.job.showId}:''" />
+
+                    <label>seed id:</label>
+                    <input type="text" class="form-control" name="seedId" th:value="${jw}?${jw.job.seedId}:''" readonly="readonly"/>
+                </div>
+                
+                <div class="form-group" >
+                    <label>优先级:</label>
+                    <input type="text" class="form-control" name="priority" th:value="${jw}?${jw.job.priority}:''" />
+
+                    <label>频率:</label>
+                    <input type="text" class="form-control" name="frequency" th:value="${jw}?${jw.job.frequency}:''" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Worker:</label>
+                    <input type="text" class="form-control" name="workerUuid" th:value="${jw}?${workerUuid}:''" readonly="readonly"/>
+                    
+                    <label>Command:</label>
+                    <input type="text" class="form-control" name="command" th:value="${jw}?${command}:''" readonly="readonly"/>
+                    
+                    <label>Key:</label>
+                    <input type="text" class="form-control" name="partitionKey" th:value="${jw}?${partitionKey}:''" readonly="readonly"/>
+                </div>
+                <div class="form-group">
+                    <label>创建时间:</label>
+                    <input type="text" class="form-control" id="createdAt" name="createdAt" th:value="${jw}?${jw.job.createdAt}:''" readonly="readonly"/>
+                    
+                    <label>更新时间:</label>
+                    <input type="text" class="form-control" id="updatedAt" name="updatedAt" th:value="${jw}?${jw.job.updatedAt}:''" readonly="readonly"/>
+                </div>
+                <button type="submit" class="btn btn-default"> 提 交 </button>
+            </form>
+         </div>
+    </div>
+    </div>
+
+</div><!-- /.container -->
+
+<footer th:include="temp :: footer"></footer>
+</body>
+</html>

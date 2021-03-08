@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="temp :: header"></head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" th:include="temp :: nav"></nav>
+
+<div class="container">
+
+    <div id="main" class="row">
+        <div class="col-md-6 col-md-offset-3">
+	        <form class="form" method="get" action="/seed/list">
+	        <div class="input-group">
+	            <input name="code" type="text" class="form-control" placeholder="请输入Code.."/>
+	            <span class="input-group-btn">
+	               <button class="btn btn-default" type="submit">查询</button>
+	            </span>
+	        </div>
+	        </form>
+        </div>
+
+        <div id="mainContent" th:unless="${#lists.isEmpty(paginator)}">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>URL</th>
+                        <th>平台</th>
+                        <th>频率</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody th:unless="${#lists.isEmpty(paginator.entites)}">
+                    <tr th:each="s : ${paginator.entites}">
+                        <td th:text="${s.id}">ID</td>
+                        <td th:text="${s.code}">
+                            <a class="btn btn-default-sm" th:href="@{/seed/list(code=${s.code})}">Code</a>
+                        </td>
+                        <td>
+                            <a th:href="${s.url}" th:text="${#strings.abbreviate(s.url, 32)}">
+                                URL
+                            </a>
+                        </td>
+                        <td th:text="${platform[s.platformId]}">platformId</td>
+                        <td class="edit_td" th:value="${s.id}" th:for="'f_'+${s.id}" name="frequency">
+		                    <label for="frequency" class="span3">
+			                    <span th:id="'f_'+${s.id}" th:text="${s.frequency}" th:value="${s.frequency}"></span>
+		                    </label>
+	                    </td>
+	                    <td>
+	                    	<a th:id="'status_'+${s.id}" th:value="${s.status}" th:class="${s.status==0} ? 'btn btn-danger status_btn' : 'btn btn-success status_btn'" 
+	                    	th:text="${s.status==0} ? '删除':'恢复'"></a>
+	                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+			<nav aria-label="pagination">
+				<ul class="pager">
+					<li th:if="${paginator.isFristPage() == false}">
+					   <a href="#" th:href="@{/seed/list(page=1)}">第一页</a>
+					</li>
+					<li th:if="${paginator.hasPrevPage()}">
+					   <a href="#" th:href="@{/seed/list(page=${paginator.pagePrev})}">上一页</a>
+					</li>
+					<li th:if="${paginator.hasNextPage()}">
+					   <a href="#" th:href="@{/seed/list(page=${paginator.pageNext})}">下一页</a>
+					</li>
+					<li th:if="${paginator.isLastPage() == false}">
+					   <a href="#" th:href="@{/seed/list(page=${paginator.pageCount})}">最后一页</a>
+					</li>
+				</ul>
+			</nav>
+        </div>
+    </div>
+</div>
+<footer th:include="temp :: footer"></footer>
+</body>
+<script src="/js/seed.js"></script>
+</html>

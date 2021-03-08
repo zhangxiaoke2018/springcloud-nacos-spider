@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="temp :: header"></head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" th:include="temp :: nav"></nav>
+
+<div class="container">
+
+    <div id="main" class="row">
+        <div class="col-md-6 col-md-offset-3">
+	        <form class="form" method="get" action="/workers">
+	        <div class="input-group">
+	            <input name="domain" type="text" class="form-control" />
+	            <span class="input-group-btn">
+	               <button class="btn btn-default" type="submit">查询</button>
+	            </span>
+	        </div>
+	        </form>
+        </div>
+
+        <div id="mainContent" th:unless="${#lists.isEmpty(paginator)}">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Hostname</th>
+                        <th>UUID</th>
+                        <th>RingIndex</th>
+                        <th>State</th>
+                        <th>Command</th>
+                        <th>TimeStamp</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody th:unless="${#lists.isEmpty(paginator.entites)}">
+                    <tr th:each="wk : ${paginator.entites}">
+                        <td th:text="${wk.domain}">domain</td>
+                        <td th:text="${wk.hostname}">hostname</td>
+                        <td th:text="${wk.uuid}">uuid</td>
+                        <td th:text="${wk.ringIndex}">ringIndex</td>
+                        <td th:text="${wk.status}">state</td>
+                        <td th:text="${wk.command}">Command</td>
+                        <td th:text="${wk.timestamp}">TimeStamp</td>
+                        <td>
+                            <button class="btn btn-default" onclick="post(this);"
+                               th:attr="data-values=@{/workers(uuid=${wk.uuid},command=Restart)}" command="Restart">
+                                Restart
+                            </button>
+<!--                             <button class="btn btn-default" onclick="post(this);" -->
+<!--                                th:attr="data-values=@{/workers(uuid=${wk.uuid},command=Terminate)}" command="Terminate"> -->
+<!--                                 Terminate -->
+<!--                             </button> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+			<nav aria-label="pagination">
+				<ul class="pager">
+					<li th:if="${paginator.isFristPage() == false}">
+					   <a href="#" th:href="@{/workers(page=1)}">第一页</a>
+					</li>
+					<li th:if="${paginator.hasPrevPage()}">
+					   <a href="#" th:href="@{/workers(page=${paginator.pagePrev})}">上一页</a>
+					</li>
+					<li th:if="${paginator.hasNextPage()}">
+					   <a href="#" th:href="@{/workers(page=${paginator.pageNext})}">下一页</a>
+					</li>
+					<li th:if="${paginator.isLastPage() == false}">
+					   <a href="#" th:href="@{/workers(page=${paginator.pageCount})}">最后一页</a>
+					</li>
+				</ul>
+			</nav>
+        </div>
+    </div>
+</div>
+
+
+<footer th:include="temp :: footer"></footer>
+
+<script>
+var post = function(that) {
+	$.post($(that).data("values"))
+	.done(function(resp) {
+		console.log(resp);
+	});
+}
+</script>
+
+</body>
+</html>

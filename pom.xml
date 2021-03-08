@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.jinguduo.spider</groupId>
+	<artifactId>onespider-parent</artifactId>
+	<version>3.0</version>
+	<packaging>pom</packaging>
+
+	<name>onespider-parent</name>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.15.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<modules>
+		<module>onespider-webmagic</module>
+		<module>onespider-common</module>
+		<module>onespider-store</module>
+		<module>onespider-supervisor</module>
+		<module>onespider-worker</module>
+		<module>onespider-dashboard</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>1.2.49</version>
+			</dependency>
+
+			<!-- csv mapper -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-csv</artifactId>
+				<version>2.9.6</version>
+			</dependency>
+
+			<!-- compress -->
+			<dependency>
+				<groupId>com.ning</groupId>
+				<artifactId>compress-lzf</artifactId>
+				<version>1.0.4</version>
+			</dependency>
+
+			<!-- emoji -->
+			<dependency>
+				<groupId>com.vdurmont</groupId>
+				<artifactId>emoji-java</artifactId>
+				<version>4.0.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>26.0-jre</version>
+			</dependency>
+
+			<!-- html unit -->
+			<dependency>
+				<groupId>net.sourceforge.htmlunit</groupId>
+				<artifactId>htmlunit</artifactId>
+				<version>2.32</version>
+			</dependency>
+			
+			<!-- DNS lib -->
+			<dependency>
+			    <groupId>dnsjava</groupId>
+			    <artifactId>dnsjava</artifactId>
+			    <version>2.1.8</version>
+			</dependency>
+			
+			<!-- aliyun cms -->
+			<dependency>
+		  		<groupId>com.aliyun</groupId>
+		  		<artifactId>aliyun-java-sdk-core</artifactId>
+		  		<version>4.3.0</version>
+		  	</dependency>
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>aliyun-java-sdk-cms</artifactId>
+				<version>6.0.16</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<includes>
+							<include>**/*Tests.java</include>
+							<include>**/*Test.java</include>
+							<include>**/*IT.class</include>
+							<include>**/*IT.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/Abstract*.java</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

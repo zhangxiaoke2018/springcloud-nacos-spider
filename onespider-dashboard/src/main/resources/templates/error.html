@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="temp :: header"></head>
+<style type="text/css">
+    h5{
+        text-align: center;
+        width: 50%;
+        margin: auto;
+        color: gray;
+        padding-top: 30px;
+    }
+    #go_home_a{
+        margin:50px auto;
+        display: block;
+        text-align: center;
+        width: 50%;
+    }
+</style>
+<body>
+<div style=" margin: 100px auto;">
+    <h1 style="width: 160px; margin: auto; text-align: center;">出错了呦</h1>
+    <h5 th:text="${exception_msg}"></h5>
+    <a id="go_home_a" href="/">返回首页</a>
+</div>
+
+<div th:text="${url}"></div>
+<!--<div th:text="${exception.message}"></div>-->
+
+
+
+<a id="show_error_msg" href="javascript:void(0);" style="float: right" >来看看哪儿错了呢?</a>
+<div id="error_msg" style="display: none" th:text="${stack_trace}"></div>
+
+
+</body>
+<footer th:include="temp :: footer"></footer>
+<script type="application/javascript">
+    $("#show_error_msg").click(function () {
+        $("#error_msg").toggle();
+    });
+
+</script>
+</html>

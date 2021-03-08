@@ -1,0 +1,9 @@
+
+# server
+server.port = 9900
+
+# onespider store
+onespider.store.host=http:/127.0.0.1:9800
+
+# redis
+onespider.master.use-redis=false

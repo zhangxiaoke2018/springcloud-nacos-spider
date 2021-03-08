@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>onespider-supervisor</artifactId>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>com.jinguduo.spider</groupId>
+		<artifactId>onespider-parent</artifactId>
+		<version>3.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.jinguduo.spider</groupId>
+			<artifactId>onespider-common</artifactId>
+			<version>3.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+			    <exclusion>
+				    <groupId>com.vaadin.external.google</groupId>
+	                <artifactId>android-json</artifactId>
+                </exclusion>
+			</exclusions>
+		</dependency>
+		<!-- nacos 依赖 -->
+<!--		<dependency>-->
+<!--			<groupId>com.alibaba.boot</groupId>-->
+<!--			<artifactId>nacos-config-spring-boot-starter</artifactId>-->
+<!--			<version>0.1.7</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.alibaba.boot</groupId>-->
+<!--			<artifactId>nacos-discovery-spring-boot-starter</artifactId>-->
+<!--			<version>0.1.7</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+			<version>0.1.2.RELEASE</version>
+		</dependency>
+		<!-- springCloud-nacos-服务发现功能依赖 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<version>0.1.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>1.4.7.RELEASE</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<profiles>
+						<profile>dev</profile>
+					</profiles>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

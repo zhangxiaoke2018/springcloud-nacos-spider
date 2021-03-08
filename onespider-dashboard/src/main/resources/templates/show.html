@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="temp :: header"></head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" th:include="temp :: nav"></nav>
+
+<div class="container">
+
+    <div id="main" class="row">
+        <div class="col-md-6 col-md-offset-3">
+	        <div class="input-group">
+	            <input name="name" type="text" id="show_name" class="form-control" />
+	            <span class="input-group-btn">
+	               <button class="btn btn-default" id="search" type="submit">查询</button>
+	            </span>
+	        </div>
+        </div>
+        <br /><br />
+        <div id="mainContent">
+
+            <table class="table" id="main_table">
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<footer th:include="temp :: footer"></footer>
+</body>
+<script src="/js/show.js">
+
+</script>
+</html>
